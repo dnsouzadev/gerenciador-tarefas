@@ -64,3 +64,11 @@ def change_status(request, id):
         task.completed = not task.completed
         task.save()
     return JsonResponse({'status': 'ok'})
+
+
+@login_required
+def search_task(request):
+    query = request.GET.get('q')
+    tasks_filtered = Task.objects.filter(title__icontains=query, created_by=request.user)
+
+    return render(request, 'list.html', {'tasks': tasks_filtered})

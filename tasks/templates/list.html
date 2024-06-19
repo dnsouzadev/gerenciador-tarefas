@@ -4,26 +4,85 @@
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-DQsTnh/0Hw6bZV4W0H0DvhLM59tltpSTCA4AON14g7NQ7a8eKB2MgKg4gBLLB+liTALhIiC/O0SOqtfOrWdkTg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+<style>
+    /* Estilos específicos para os cards de tarefas */
+    .task-card {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .task-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .task-actions .btn {
+        margin-left: 5px;
+    }
+    .detail-label {
+        font-weight: bold;
+    }
+    .tag-list {
+        list-style-type: none;
+        padding: 0;
+    }
+    .tag-list li {
+        display: inline-block;
+        margin-right: 5px;
+        background-color: #f0f0f0;
+        padding: 2px 5px;
+        border-radius: 3px;
+    }
+    .task-actions {
+        display: flex;
+        gap: 10px;
+    }
+    .task-actions .btn-primary {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .input-group-append .btn {
+        display: flex;
+        align-items: center;
+    }
+</style>
 {% endblock %}
 
 {% block title %}Tarefas{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <h1>Tarefas</h1>
-        <div class="task-actions">
+    <div class="container-fluid">
+        <h1 class="text-center mb-4">Tarefas</h1>
+
+        <div class="task-actions mb-3">
             <a href="{% url 'create_task' %}" class="btn btn-primary"><i class="fas fa-plus"></i> Criar Tarefa</a>
+            <a href="{% url 'list_task' %}" class="btn btn-primary"><i class="fas fa-sync-alt"></i> Atualizar</a>
         </div>
-        <ul class="task-list">
+
+        <!-- Barra de Pesquisa -->
+        <form action="{% url 'search_task' %}" method="GET" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Buscar por título da tarefa">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-outline-primary"><i class="fas fa-search"></i> Pesquisar</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="row justify-content-center">
             {% for task in tasks %}
-                <li class="task-item">
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="task-card p-4">
                     <div class="task-header">
                         <h2>{{ task.title }}</h2>
                         <div class="task-actions">
-                            <a href="{% url 'update_task' task.id %}" class="btn btn-info"><i class="fas fa-pencil-alt"></i> Editar</a>
-                            <a href="{% url 'delete_task' task.id %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Excluir</a>
-                            <a href="{% url 'detail_task' task.id %}" class="btn btn-secondary"><i class="fas fa-info-circle"></i> Detalhes</a>
+                            <a href="{% url 'update_task' task.id %}" class="btn btn-outline-info btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
+                            <a onclick="apagar_task({{ task.id }})" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash-alt"></i> Excluir</a>
+                            <a href="{% url 'detail_task' task.id %}" class="btn btn-outline-secondary btn-sm"><i class="fas fa-info-circle"></i> Detalhes</a>
                         </div>
                     </div>
                     <p>{{ task.description }}</p>
@@ -48,8 +107,10 @@
                         <li><span class="detail-label">Criado por:</span> {{ task.created_by.username }}</li>
                         <li><span class="detail-label">Criado em:</span> {{ task.created_at|date:"d/m/Y H:i" }}</li>
                     </ul>
-                </li>
+                </div>
+            </div>
             {% endfor %}
-        </ul>
+        </div>
     </div>
+    <script src="{% static 'js/list.js' %}"></script>
 {% endblock %}

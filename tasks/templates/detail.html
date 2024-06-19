@@ -1,15 +1,66 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-DQsTnh/0Hw6bZV4W0H0DvhLM59tltpSTCA4AON14g7NQ7a8eKB2MgKg4gBLLB+liTALhIiC/O0SOqtfOrWdkTg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    .task-details-container {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        margin-top: 20px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .task-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .task-actions .btn {
+        margin-left: 5px;
+    }
+    .detail-label {
+        font-weight: bold;
+    }
+    .task-details {
+        list-style-type: none;
+        padding: 0;
+    }
+    .task-details li {
+        margin-bottom: 10px;
+    }
+    .tag-list {
+        list-style-type: none;
+        padding: 0;
+    }
+    .tag-list li {
+        display: inline-block;
+        margin-right: 5px;
+        background-color: #f0f0f0;
+        padding: 2px 5px;
+        border-radius: 3px;
+    }
+    .status-button {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px;
+    }
+</style>
+{% endblock %}
 
 {% block content %}
+<div class="container task-details-container">
 
-<div class="container">
-
-    <h1>{{ task.title }}</h1>
-
-    <div class="task-actions">
-        <a href="{% url 'update_task' task.id %}" class="btn btn-info"><i class="fas fa-pencil-alt"></i> Editar</a>
-        <a href="{% url 'delete_task' task.id %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Excluir</a>
-        <a href="{% url 'list_task' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
+    <div class="task-header">
+        <h1>{{ task.title }}</h1>
+        <div class="task-actions">
+            <a href="{% url 'update_task' task.id %}" class="btn btn-info"><i class="fas fa-pencil-alt"></i> Editar</a>
+            <a href="{% url 'delete_task' task.id %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Excluir</a>
+            <a href="{% url 'list_task' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
+        </div>
     </div>
 
     <p>{{ task.description }}</p>
@@ -31,22 +82,29 @@
             </ul>
         </li>
         <li><span class="detail-label">Prioridade:</span> {{ task.priority }}</li>
-        <li><span class="detail-label">Data de Vencimento:</span> {{ task.due_date }}</li>
+        <li><span class="detail-label">Data de Vencimento:</span> {{ task.due_date|date:"d/m/Y" }}</li>
         <li><span class="detail-label">Criado por:</span> {{ task.created_by.username }}</li>
         <li><span class="detail-label">Criado em:</span> {{ task.created_at|date:"d/m/Y H:i" }}</li>
-
         <li>
-            {% if task.completed == True %}
-                <span class="detail-label">Concluída:</span> Sim
+            <span class="detail-label">Concluída:</span>
+            {% if task.completed %}
+                Sim
             {% else %}
-                <span class="detail-label">Concluída:</span> Não
+                Não
             {% endif %}
-        </li>
-        <li>
-            <a href="{% url 'change_status' task.id %}" class="btn btn-success"><i class="fas fa-check"></i> Mudar Status</a>
         </li>
     </ul>
 
+    <div class="status-button">
+        <a onclick="change_status({{ task.id }})" class="btn btn-success"><i class="fas fa-check"></i>
+        {% if task.completed %}
+            Marcar como não concluída
+        {% else %}
+            Marcar como concluída
+        {% endif %}
+        </a>
+    </div>
 </div>
+<script src="{% static 'js/list.js' %}"></script>
 
 {% endblock %}
