@@ -1,3 +1,5 @@
+from datetime import datetime
+from tasks.models import Task
 from django.shortcuts import render
 from .forms import LoginForm, RegisterForm, ProfileForm
 from django.contrib.auth import authenticate, login, logout
@@ -39,7 +41,26 @@ def register_view(request):
 
 @login_required
 def home(request):
-    return render(request, 'home.html')
+    tasks = Task.objects.filter(created_by=request.user)
+    tasks_count = tasks.count()
+    completed_tasks = tasks.filter(completed=True).count()
+    pendent_tasks = tasks_count - completed_tasks
+
+    get_tasks_today = Task.objects.filter(due_date=datetime.now().date())
+    get_tasks_today_count = get_tasks_today.count()
+    get_tasks_today_completed = get_tasks_today.filter(completed=True).count()
+    get_tasks_today_pendent = get_tasks_today_count - get_tasks_today_completed
+
+    context = {
+        'tasks_count': tasks_count,
+        'completed_tasks': completed_tasks,
+        'pendent_tasks': pendent_tasks,
+        'get_tasks_today_count': get_tasks_today_count,
+        'get_tasks_today_completed': get_tasks_today_completed,
+        'get_tasks_today_pendent': get_tasks_today_pendent
+    }
+
+    return render(request, 'home.html', context)
 
 
 @login_required

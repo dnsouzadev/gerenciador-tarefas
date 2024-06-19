@@ -13,6 +13,7 @@
     <style>
         body {
             padding-top: 56px;
+            margin-bottom: 100px; /* Altura do footer */
         }
         .navbar-custom {
             background-color: #007bff;
@@ -31,6 +32,15 @@
         }
         .btn-profile, .btn-logout {
             margin-left: 10px;
+        }
+        /* Estilos do footer */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 20px 0;
         }
     </style>
     {% block styles %}{% endblock %}
@@ -70,6 +80,13 @@
     <div class="content-container">
         {% block content %}{% endblock %}
     </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2024 Gerenciador de Tarefas, <a href="https://github.com/dnsouzadev/gerenciador-tarefas">github</a></p>
+        </div>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
