@@ -38,11 +38,7 @@
         <h1 class="form-header text-center">Editar Tarefa</h1>
         <form method="post">
             {% csrf_token %}
-            {{ form | crispy }}
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Salvar</button>
-                <a href="{% url 'list_task' %}" class="btn btn-secondary"><i class="fas fa-times"></i> Cancelar</a>
-            </div>
+            {% crispy form %}
         </form>
     </div>
 {% endblock %}

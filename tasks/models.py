@@ -25,7 +25,7 @@ class Task(models.Model):
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, blank=True, null=True, related_name='tasks')
     tags = models.ManyToManyField(Tag, blank=True)
     priority = models.CharField(max_length=10, choices=PRIORITY_CHOICES, default='Média')
-    due_date = models.DateField(blank=True, null=True)
+    due_date = models.DateTimeField(blank=True, null=True)
     completed = models.BooleanField(default=False)
     created_by = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)

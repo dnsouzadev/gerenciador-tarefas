@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 from tasks.models import Task
 from django.shortcuts import render
 from .forms import LoginForm, RegisterForm, ProfileForm
@@ -46,9 +46,22 @@ def home(request):
     completed_tasks = tasks.filter(completed=True).count()
     pendent_tasks = tasks_count - completed_tasks
 
-    get_tasks_today = Task.objects.filter(due_date=datetime.now().date())
-    get_tasks_today_count = get_tasks_today.count()
-    get_tasks_today_completed = get_tasks_today.filter(completed=True).count()
+    date_t = date.today()
+    tasks_today = 0
+
+    for task in tasks:
+        if task.due_date.date() == date_t:
+            tasks_today += 1
+
+    tasks_completed = 0
+    for task in tasks:
+        if task.due_date.date() == date_t and task.completed == True:
+            tasks_completed += 1
+
+
+
+    get_tasks_today_count = tasks_today
+    get_tasks_today_completed = tasks_completed
     get_tasks_today_pendent = get_tasks_today_count - get_tasks_today_completed
 
     context = {
