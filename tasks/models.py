@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from autenticacao.models import UserProfile
 
 class Project(models.Model):
     name = models.CharField(max_length=100)
@@ -27,7 +27,7 @@ class Task(models.Model):
     priority = models.CharField(max_length=10, choices=PRIORITY_CHOICES, default='Média')
     due_date = models.DateField(blank=True, null=True)
     completed = models.BooleanField(default=False)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

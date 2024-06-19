@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Meu Perfil{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-DQsTnh/0Hw6bZV4W0H0DvhLM59tltpSTCA4AON14g7NQ7a8eKB2MgKg4gBLLB+liTALhIiC/O0SOqtfOrWdkTg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    .profile-container {
+        margin-top: 50px;
+    }
+    .card {
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .card-header {
+        background-color: #007bff;
+        color: white;
+    }
+    .profile-image {
+        margin-bottom: 20px;
+    }
+    .profile-image img {
+        border-radius: 50%;
+    }
+    .profile-details p {
+        margin-bottom: 10px;
+    }
+    .profile-actions {
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Meu Perfil</h3>
+                </div>
+                <div class="card-body">
+                    <div class="profile-image text-center">
+                        <img src="{% if user.photo %}{{ user.photo.url }}{% else %}{% static 'img/default-avatar.png' %}{% endif %}" width="200px" height="200px" alt="Avatar" class="img-thumbnail">
+                    </div>
+                    <div class="profile-details">
+                        <h4 class="text-center">{{ user.username }}</h4>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                        {% if user.bio %}
+                            <p><strong>Bio:</strong> {{ user.bio }}</p>
+                        {% endif %}
+                        <p><strong>Data de Nascimento:</strong> {{ user.birth_date|date:"d/m/Y" }}</p>
+                    </div>
+                    <div class="profile-actions">
+                        <a href="{% url 'update_profile' %}" class="btn btn-primary"><i class="fas fa-edit"></i> Editar Perfil</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

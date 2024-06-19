@@ -1,15 +1,15 @@
 {% extends "base.html" %}
-
+{% load static %}
+{% load crispy_forms_tags %}
 {% block title %}Cadastro{% endblock %}
 
 {% block content %}
-
-    <form method="post">
+<div class="container">
+    <form method="post", enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form | crispy }}
         <button type="submit" class="btn btn-success">Cadastre-se</button>
     </form>
     <br>
-    <a href='{% url "login" %}' class='btn btn-info'>Login</a>
-
+</div>
 {% endblock %}
