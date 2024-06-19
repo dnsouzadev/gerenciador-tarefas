@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>{{ task.title }}</h1>
+
+    <div class="task-actions">
+        <a href="{% url 'update_task' task.id %}" class="btn btn-info"><i class="fas fa-pencil-alt"></i> Editar</a>
+        <a href="{% url 'delete_task' task.id %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Excluir</a>
+        <a href="{% url 'list_task' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
+    </div>
+
+    <p>{{ task.description }}</p>
+
+    <ul class="task-details">
+        <li>
+            {% if task.project %}
+                <span class="detail-label">Projeto:</span> {{ task.project.name }}
+            {% else %}
+                <span class="detail-label">Projeto:</span> Sem projeto
+            {% endif %}
+        </li>
+        <li>
+            <span class="detail-label">Tags:</span>
+            <ul class="tag-list">
+                {% for tag in task.tags.all %}
+                    <li>{{ tag.name }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+        <li><span class="detail-label">Prioridade:</span> {{ task.priority }}</li>
+        <li><span class="detail-label">Data de Vencimento:</span> {{ task.due_date }}</li>
+        <li><span class="detail-label">Criado por:</span> {{ task.created_by.username }}</li>
+        <li><span class="detail-label">Criado em:</span> {{ task.created_at|date:"d/m/Y H:i" }}</li>
+
+        <li>
+            {% if task.completed == True %}
+                <span class="detail-label">Concluída:</span> Sim
+            {% else %}
+                <span class="detail-label">Concluída:</span> Não
+            {% endif %}
+        </li>
+        <li>
+            <a href="{% url 'change_status' task.id %}" class="btn btn-success"><i class="fas fa-check"></i> Mudar Status</a>
+        </li>
+    </ul>
+
+</div>
+
+{% endblock %}
