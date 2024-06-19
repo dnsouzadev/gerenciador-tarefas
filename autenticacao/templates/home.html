@@ -2,60 +2,61 @@
 {% load static %}
 {% block title %}Página Inicial{% endblock %}
 
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+
 {% block content %}
 <div class="container mt-5">
     <h2 class="text-center">Olá, {{ user.first_name }} {{ user.last_name }}</h2>
-    <div class="row justify-content-center mt-4">
+    <div class="row mt-4">
         <div class="col-md-6">
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    <div class="card shadow-sm">
-                        <div class="card-header bg-primary text-white">
-                            <h3 class="text-center">TAREFAS</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <p class="mb-0">TAREFAS TOTAIS</p>
-                                <h1 class="text-primary">{{ tasks_count }}</h1>
-                            </div>
-                        </div>
-                        <div class="card-body border-top">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <p class="mb-0">TAREFAS PENDENTES</p>
-                                <h1 class="text-warning">{{ pendent_tasks }}</h1>
-                            </div>
-                        </div>
-                        <div class="card-body border-top">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <p class="mb-0">TAREFAS FEITAS</p>
-                                <h1 class="text-success">{{ completed_tasks }}</h1>
-                            </div>
-                        </div>
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="text-center">TAREFAS</h3>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="mb-0">TAREFAS TOTAIS</p>
+                        <h1 class="text-primary">{{ tasks_count }}</h1>
                     </div>
                 </div>
-                <div class="col-md-6 mb-4">
-                    <div class="card shadow-sm">
-                        <div class="card-header bg-primary text-white">
-                            <h3 class="text-center">TAREFAS HOJE</h3>
-                        </div>
-                        <div class="card-body border-top">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <p class="mb-0">TAREFAS PARA HOJE</p>
-                                <h1 class="text-primary">{{ get_tasks_today_count }}</h1>
-                            </div>
-                        </div>
-                        <div class="card-body border-top">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <p class="mb-0">TAREFAS PARA HOJE PENDENTES</p>
-                                <h1 class="text-warning">{{ get_tasks_today_pendent }}</h1>
-                            </div>
-                        </div>
-                        <div class="card-body border-top">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <p class="mb-0">TAREFAS PARA HOJE FEITAS</p>
-                                <h1 class="text-success">{{ get_tasks_today_completed }}</h1>
-                            </div>
-                        </div>
+                <div class="card-body border-top">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="mb-0">TAREFAS PENDENTES</p>
+                        <h1 class="text-warning">{{ pendent_tasks }}</h1>
+                    </div>
+                </div>
+                <div class="card-body border-top">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="mb-0">TAREFAS FEITAS</p>
+                        <h1 class="text-success">{{ completed_tasks }}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="text-center">TAREFAS HOJE</h3>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="mb-0">TAREFAS PARA HOJE</p>
+                        <h1 class="text-primary">{{ get_tasks_today_count }}</h1>
+                    </div>
+                </div>
+                <div class="card-body border-top">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="mb-0">TAREFAS PARA HOJE PENDENTES</p>
+                        <h1 class="text-warning">{{ get_tasks_today_pendent }}</h1>
+                    </div>
+                </div>
+                <div class="card-body border-top">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="mb-0">TAREFAS PARA HOJE FEITAS</p>
+                        <h1 class="text-success">{{ get_tasks_today_completed }}</h1>
                     </div>
                 </div>
             </div>

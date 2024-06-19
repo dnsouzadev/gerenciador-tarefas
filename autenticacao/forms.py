@@ -9,6 +9,11 @@ class LoginForm(forms.Form):
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(label='E-mail', widget=forms.EmailInput)
     birth_date = forms.DateField(label='Data de Nascimento', widget=forms.DateInput)
+    username = forms.CharField(label='Usuário')
+    password1 = forms.CharField(label='Senha', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Confirmação de Senha', widget=forms.PasswordInput)
+    gender = forms.ChoiceField(label='Gênero', choices=(('M', 'Masculino'), ('F', 'Feminino')))
+    photo = forms.ImageField(label='Foto de Perfil')
     class Meta:
         model = UserProfile
         fields = ['first_name', 'last_name', 'username', 'email', 'photo', 'birth_date', 'gender']
