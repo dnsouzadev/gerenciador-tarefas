@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Cadastro{% endblock %}
+
+{% block content %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Cadastre-se</button>
+    </form>
+    <br>
+    <a href='{% url "login" %}' class='btn btn-info'>Login</a>
+
+{% endblock %}
