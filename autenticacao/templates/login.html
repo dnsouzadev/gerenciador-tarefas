@@ -1,14 +1,52 @@
 {% extends "base.html" %}
-{% load crispy_forms_tags %}
 {% block title %}Login{% endblock %}
 
+{% block style %}
+.body {
+    background: white;
+    background: linear-gradient(to right, #0062E6, #33AEFF);
+  }
+
+  .btn-login {
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+    padding: 0.75rem 1rem;
+  }
+
+{% endblock %}
+
+
 {% block content %}
+
 <div class="container">
-    <form method="post">
-        {% csrf_token %}
-        {{ form | crispy }}
-        <button type="submit" class="btn btn-success">Login</button>
-    </form>
-    <br>
-</div>
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card border-0 shadow rounded-3 my-5">
+          <div class="card-body p-4 p-sm-5">
+            <h5 class="card-title text-center mb-5 fw-light fs-5">Entrar</h5>
+            <form method="POST">
+              {% csrf_token %}
+              <div class="form-floating mb-3">
+                <input type="username" class="form-control" id="floatingInput" name="username" placeholder="Usuario">
+              </div>
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Senha">
+              </div>
+
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
+                <label class="form-check-label" for="rememberPasswordCheck">
+                  Lembrar a senha
+                </label>
+              </div>
+              <div class="d-grid">
+                <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 {% endblock %}
