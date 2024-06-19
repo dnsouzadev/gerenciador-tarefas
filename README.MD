@@ -1,67 +1,119 @@
-# Plataforma de Gerenciamento de Tarefas Integrada com Google Chrome
+# Gerenciador de Tarefas
 
-Descrição do Projeto:
-Desenvolver uma plataforma web utilizando Django que permita aos usuários gerenciar suas tarefas diárias de maneira eficiente. A plataforma também terá uma extensão para o Google Chrome que permitirá aos usuários interagir diretamente com suas tarefas a partir do navegador.
+Bem-vindo ao Gerenciador de Tarefas, um aplicativo web para gerenciar suas tarefas diárias de forma eficiente. Este projeto foi desenvolvido utilizando Django e Bootstrap para fornecer uma interface amigável e responsiva.
 
-Funcionalidades Principais:
-Autenticação de Usuários:
+## Funcionalidades
 
-Login seguro.
-Registro de novos usuários.
-Recuperação de senha.
-Gestão de Tarefas:
+- **Autenticação de Usuário:** Registro, login e gerenciamento de perfil.
+- **Gerenciamento de Tarefas:** Criação, visualização, edição e exclusão de tarefas.
+- **Classificação de Tarefas:** Definição de prioridades (Baixa, Média, Alta) e categorização por projetos e tags.
+- **Visualização de Tarefas:** Exibição de tarefas totais, pendentes, concluídas e tarefas específicas do dia.
 
-CRUD (Create, Read, Update, Delete) de tarefas.
-Categorização de tarefas por projetos ou tags.
-Definição de prioridades e prazos para as tarefas.
-Opção de marcar tarefas como concluídas.
-Integração com Google Chrome:
+## Tecnologias Utilizadas
 
-Desenvolvimento de uma extensão para o Google Chrome que permita aos usuários adicionar rapidamente novas tarefas diretamente do navegador.
-Notificações no navegador sobre tarefas pendentes ou próximas do prazo.
-Dashboard Personalizado:
+- Django
+- Bootstrap
+- Crispy Forms
+- SQLite (Banco de Dados padrão)
 
-Visão geral das tarefas pendentes, concluídas e em andamento.
-Gráficos e estatísticas sobre a produtividade do usuário.
-Colaboração e Compartilhamento:
+## Instalação
 
-Capacidade de compartilhar tarefas ou projetos com outros usuários.
-Comentários e discussões sobre tarefas específicas.
-Responsividade e Design Moderno:
+Siga as etapas abaixo para configurar e executar o projeto localmente.
 
-Interface amigável e responsiva que funcione bem em desktops e dispositivos móveis.
-Tecnologias Utilizadas:
-Django: Para o desenvolvimento do backend da aplicação.
-Django REST Framework: Para construir APIs que serão consumidas pela extensão do Chrome.
-JavaScript/HTML/CSS: Para o desenvolvimento da extensão do Google Chrome.
-SQLite/PostgreSQL: Para o armazenamento de dados das tarefas e usuários.
-Bootstrap ou Materialize CSS: Para facilitar o design responsivo e moderno.
-Passos de Implementação:
-Configuração Inicial:
+### Pré-requisitos
 
-Configurar um ambiente de desenvolvimento Django.
-Criar modelos para usuários e tarefas, definindo suas relações.
-Desenvolvimento do Backend:
+- Python 3.6 ou superior
+- Virtualenv
 
-Implementar as funcionalidades de CRUD para tarefas.
-Implementar autenticação de usuários.
-Desenvolvimento da Extensão do Chrome:
+### Passos
 
-Criar um projeto para a extensão usando JavaScript, HTML e CSS.
-Integrar a extensão com a API REST do Django para criar, ler, atualizar e excluir tarefas.
-Integração e Testes:
+1. **Clone o repositório:**
+    ```bash
+    git clone https://github.com/dnsouzadev/gerenciador-tarefas.git
+    cd gerenciador-tarefas
+    ```
 
-Testar a integração entre a plataforma web e a extensão do Chrome.
-Realizar testes de usabilidade e correção de bugs.
-Implementação de Recursos Avançados:
+2. **Crie e ative um ambiente virtual:**
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # No Windows, use `venv\Scripts\activate`
+    ```
 
-Adicionar funcionalidades como notificações, estatísticas e colaboração.
-Deploy e Manutenção:
+3. **Instale as dependências:**
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-Preparar a aplicação para deploy em um servidor de produção.
-Monitorar e manter a aplicação após o lançamento.
-Benefícios do Projeto:
-Aumento da Produtividade: Permitirá aos usuários gerenciar suas tarefas de forma organizada e eficiente.
-Facilidade de Uso: A extensão do Chrome proporcionará uma experiência integrada ao navegador.
-Aprendizado de Tecnologias: O projeto oferece oportunidades de aprendizado em Django, APIs REST, desenvolvimento de extensões para o Chrome, entre outros.
-Este projeto combina a robustez do Django para o backend com a flexibilidade e integração oferecida pela extensão do Chrome, proporcionando uma experiência completa de gerenciamento de tarefas para os usuários.
+4. **Realize as migrações do banco de dados:**
+    ```bash
+    python manage.py makemigrations
+    python manage.py migrate
+    ```
+
+5. **Crie um superusuário (opcional, para acesso ao admin):**
+    ```bash
+    python manage.py createsuperuser
+    ```
+
+6. **Inicie o servidor de desenvolvimento:**
+    ```bash
+    python manage.py runserver
+    ```
+
+7. **Acesse o aplicativo:**
+    Abra o navegador e vá para `http://127.0.0.1:8000/`
+
+## Uso
+
+Após instalar e executar o servidor de desenvolvimento, você pode acessar a aplicação para:
+
+1. Registrar um novo usuário ou fazer login com um usuário existente.
+2. Criar novos projetos e tags.
+3. Adicionar, editar ou excluir tarefas associando-as a projetos e tags.
+4. Visualizar o dashboard com estatísticas de tarefas.
+
+## Estrutura do Projeto
+
+- `autenticacao/` - Gerencia a autenticação e o perfil do usuário.
+- `tasks/` - Gerencia as funcionalidades de tarefas, incluindo modelos, formulários e views.
+- `templates/` - Contém os templates HTML para as views.
+- `static/` - Arquivos estáticos (CSS, JS) usados no projeto.
+
+## Contribuindo
+
+Se você quiser contribuir com o projeto, siga os passos abaixo:
+
+1. **Fork o repositório:**
+    Clique no botão "Fork" no canto superior direito da página do repositório.
+
+2. **Clone o seu fork localmente:**
+    ```bash
+    git clone https://github.com/seu-usuario/gerenciador-tarefas.git
+    cd gerenciador-tarefas
+    ```
+
+3. **Crie uma branch para sua feature ou correção:**
+    ```bash
+    git checkout -b minha-feature
+    ```
+
+4. **Faça suas alterações e comite:**
+    ```bash
+    git commit -m "Adiciona minha nova feature"
+    ```
+
+5. **Envie suas alterações para o GitHub:**
+    ```bash
+    git push origin minha-feature
+    ```
+
+6. **Abra um Pull Request:**
+    Vá até o repositório original e clique em "New Pull Request".
+
+## Licença
+
+Este projeto está licenciado sob os termos da [MIT License](LICENSE).
+
+---
+
+Se tiver qualquer dúvida ou problema, sinta-se à vontade para abrir uma issue no repositório.
