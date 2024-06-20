@@ -13,7 +13,6 @@ def login_view(request):
         form = LoginForm(request.POST)
         if form.is_valid():
             user = authenticate(request, username=form.cleaned_data['username'], password=form.cleaned_data['password'])
-            print(user)
             if user is not None:
                 login(request, user)
                 return redirect('home')
