@@ -20,8 +20,16 @@ def create_task(request):
         if form.is_valid():
             task = form.save(commit=False)
             task.created_by = request.user
+            tags = form.cleaned_data['tags'].split(',')
             task.save()
-            form.save_m2m()
+            for tag in tags:
+                tag = tag.strip()
+                if tag:
+                    print(tag)
+                    print(type(tag))
+                    tag_obj, created = Tag.objects.get_or_create(name=tag)
+                    task.tags.add(tag_obj)
+
             return redirect('list_task')
     else:
         form = TaskForm()
@@ -35,7 +43,16 @@ def update_task(request, id):
     if request.method == 'POST':
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
-            form.save()
+            task =form.save(commit=False)
+            tags = form.cleaned_data['tags'].split(',')
+
+            for tag in tags:
+                tag = tag.strip()
+                if tag:
+                    tag_obj, created = Tag.objects.get_or_create(name=tag)
+                    task.tags.add(tag_obj)
+
+            task.save()
             return redirect('list_task')
     else:
         form = TaskForm(instance=task)
