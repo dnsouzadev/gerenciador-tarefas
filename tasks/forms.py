@@ -1,6 +1,7 @@
 from django import forms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, Submit
+from crispy_forms.layout import Layout, Field, Submit, HTML
+from django.urls import reverse
 
 from .models import Task, Tag
 
@@ -26,6 +27,8 @@ class TaskForm(forms.ModelForm):
             Field('priority', css_class='form-control'),
             Field('due_date', css_class='form-control'),
             Submit('submit', 'Salvar', css_class='btn btn-primary'),
+            HTML('<a class="btn btn-secondary" href="%s">Cancelar</a>' % reverse('list_task')),
+
         )
         if self.instance.pk:
             tags = ','.join(tag.name for tag in self.instance.tags.all())

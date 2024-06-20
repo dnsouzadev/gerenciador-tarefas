@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Task, Tag
@@ -6,7 +7,7 @@ from django.http import JsonResponse
 
 @login_required
 def list_task(request):
-    tasks_filtered = Task.objects.filter(created_by=request.user)
+    tasks_filtered = Task.objects.filter(due_date__gte=timezone.now(), created_by=request.user)
 
     context = {
         'tasks': tasks_filtered,
