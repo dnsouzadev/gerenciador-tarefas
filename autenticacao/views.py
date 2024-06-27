@@ -93,6 +93,5 @@ def update_profile(request):
             return redirect('profile')
     else:
         form = ProfileForm(instance=user)
-        print(user.photo.url)
 
     return render(request, 'update_profile.html', {'form': form})
